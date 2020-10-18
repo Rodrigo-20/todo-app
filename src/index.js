@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+import './style.scss'
 
 function TodoItem(props) {
     return (
@@ -25,10 +25,10 @@ function TodoList(props) {
 
 function AddItem(props) {
     return (
-        <div>
+        <div className='addForm'>
             <form onSubmit={props.handleSubmit}>
-                <button type="submit">Add</button>
                 <input type="text" value={props.value} onChange={props.handleChange}></input>
+                <button type="submit" disabled={props.disabled}>Add</button>
             </form>
         </div>
     )
@@ -37,6 +37,14 @@ function AddItem(props) {
 function AddTaskButton(props) {
     return (
         <button type='button' onClick={props.showForm}>Add Task</button>
+    )
+}
+
+function Header() {
+    return (
+        <div className='header'>
+            <h1>Todo List</h1>
+        </div>
     )
 }
 
@@ -105,11 +113,15 @@ class TodoApp extends React.Component {
     }
 
     render() {
-        const addItem = <AddItem handleSubmit={this.addItem} value={this.state.newItemText} handleChange={this.handleChange} />
+        const addItem = <AddItem handleSubmit={this.addItem} value={this.state.newItemText} handleChange={this.handleChange}
+            disabled={!this.state.newItemText} />
         return (
             <div id='todoApp' >
-                <TodoList list={this.state.todoList} handleClick={this.toggleCheck} />
-                {this.state.showForm ? addItem : <AddTaskButton showForm={this.renderForm} />}
+                <Header />
+                <div className='todoList'>
+                    <TodoList list={this.state.todoList} handleClick={this.toggleCheck} />
+                    {this.state.showForm ? addItem : <AddTaskButton showForm={this.renderForm} />}
+                </div>
             </div>
 
         )

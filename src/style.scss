@@ -1,0 +1,63 @@
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+#todoApp{
+    @extend .flex-column;
+    
+}
+
+.header{
+    width: 100%;
+    background-color: #0cad85;
+    text-align: center;
+    color:white
+}
+
+.todoList {
+    @extend .flex-column;
+    align-items: flex-start;
+    padding-top: 15px;
+    margin-left: 400px;
+    button{
+        margin-top: 10px;
+    }
+}
+
+.todoItem{
+    padding: 7px 0px 3px 0px;
+    border-bottom: 1px solid #c3c3c3;
+    width: 70%;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    input{
+        margin-right: 15px;
+    }
+}
+
+.addForm{ 
+    width: 100%;
+    form{
+         @extend .flex-column;
+        input{
+            border: none;
+            border-bottom: 1px solid #c3c3c3;
+            width:70% ;
+            padding: 5px 0px;
+            padding-left: 30px;
+            font-size: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        input:focus{
+            outline: none;
+            border-bottom: 1px solid black;
+            font-size: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        button{
+            margin-top: 10px;
+            width: 50px;
+        }
+    }
+}
