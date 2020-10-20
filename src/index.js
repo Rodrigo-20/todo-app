@@ -6,6 +6,7 @@ import './style.scss';
 import 'react-calendar/dist/Calendar.css';
 import formatDistance from 'date-fns/formatDistance';
 import diferenceInDays from 'date-fns/differenceInDays';
+import { AiFillGithub } from 'react-icons/ai';
 
 
 function TodoItem(props) {
@@ -76,7 +77,11 @@ function MyCalendar(props) {
     );
 }
 
-
+function Signature() {
+    return (
+        <div className='signature'>By Rodrigo <a href='https://github.com/Rodrigo-20'><AiFillGithub /></a></div>
+    )
+}
 
 class TodoApp extends React.Component {
     constructor(props) {
@@ -204,6 +209,7 @@ class TodoApp extends React.Component {
                 </div>
                 { this.state.showCalendar ?
                     <MyCalendar date={this.state.date} onClickDay={this.onClickDay} /> : null}
+                <Signature />
             </div>
         )
     }
