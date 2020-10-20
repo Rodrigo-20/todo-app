@@ -3,5 +3,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 <ul>
   <li>Show tasks sorted by date</li>
   <li>Add a cancel button to the calendar</li>
+  <li>Use caps on the tasks</li>
 </ul>
 */this can be done using difference in days and sorting the array/*
