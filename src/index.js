@@ -40,7 +40,10 @@ function AddItem(props) {
         <div className='addForm'>
             <form onSubmit={props.handleSubmit}>
                 <input type="text" value={props.value} onChange={props.handleChange}></input>
-                <button type="submit" disabled={props.disabled}>Add</button>
+                < div className='buttons'>
+                    <button type="submit" disabled={props.disabled}>Add</button>
+                    <button type='button' onClick={props.displayCalendar}>Today</button>
+                </div>
             </form>
         </div>
     )
@@ -63,7 +66,6 @@ function Header() {
 
 
 function MyCalendar(props) {
-
     return (
         <div className='calendar'>
             <Calendar
@@ -74,11 +76,7 @@ function MyCalendar(props) {
     );
 }
 
-function DateTittle(props) {
-    return (
-        <p>{props.taskDate}</p>
-    )
-}
+
 
 class TodoApp extends React.Component {
     constructor(props) {
@@ -89,7 +87,7 @@ class TodoApp extends React.Component {
                     text: "take out for walk",
                     key: 1,
                     status: false,
-                    dateCreation: new Date(2020, 9, 21),
+                    dateCreation: new Date(),
                     dateHead: '',
                 },
                 {
@@ -103,6 +101,7 @@ class TodoApp extends React.Component {
             ],
             newItemText: '',
             showForm: false,
+            showCalendar: false,
             today: new Date(),
             date: new Date(),
             taskDate: '',
@@ -114,23 +113,20 @@ class TodoApp extends React.Component {
         this.renderForm = this.renderForm.bind(this);
         /*this.onChange = this.onChange.bind(this);*/
         this.onClickDay = this.onClickDay.bind(this);
-
+        this.displayCalendar = this.displayCalendar.bind(this);
 
     }
     componentDidMount() {
         this.dateTittle();
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.date != this.state.date) {
-            console.log(`the date was updated to :${this.state.date}`)
-            this.setState({ taskDate: formatDistance(this.state.date, this.state.today, { addSuffix: true }) })
-        }
+
     }
 
     dateTittle() {
         this.setState(state => ({
             todoList: state.todoList.map((item, itemIndex) => {
-                return Object.assign(item, { dateHead: diferenceInDays(item.dateCreation, state.date) === 0 ? 'Today' : formatDistance(item.dateCreation, state.date, { addSuffix: true }), });
+                return Object.assign(item, { dateHead: diferenceInDays(item.dateCreation, state.today) === 0 ? 'Today' : formatDistance(item.dateCreation, state.today, { addSuffix: true }), });
 
             })
 
@@ -155,11 +151,15 @@ class TodoApp extends React.Component {
         newItem.text = this.state.newItemText;
         newItem.key = this.state.todoList.length + 1;
         newItem.status = false;
+        newItem.dateCreation = this.state.date;
         this.setState(state => ({
             todoList: [...state.todoList, newItem],
             newItemText: '',
             showForm: false,
+            showCalendar: false,
+            date: new Date(),
         }));
+        this.dateTittle();
         console.log(this.state.todoList);
     }
 
@@ -172,6 +172,12 @@ class TodoApp extends React.Component {
     renderForm() {
         this.setState({
             showForm: true
+        })
+    }
+
+    displayCalendar() {
+        this.setState({
+            showCalendar: true
         })
     }
 
@@ -188,19 +194,16 @@ class TodoApp extends React.Component {
 
     render() {
         const addItem = <AddItem handleSubmit={this.addItem} value={this.state.newItemText} handleChange={this.handleChange}
-            disabled={!this.state.newItemText} />
+            disabled={!this.state.newItemText} displayCalendar={this.displayCalendar} />
         return (
-            <div>
-                <div id='todoApp' >
-                    <Header />
-                    <div className='todoList'>
-                        <TodoList list={this.state.todoList} handleClick={this.toggleCheck} date={this.state.today} />
-                        {this.state.showForm ? addItem : <AddTaskButton showForm={this.renderForm} />}
-                    </div>
-
+            <div id='todoApp' >
+                <Header />
+                <div className='todoList'>
+                    <TodoList list={this.state.todoList} handleClick={this.toggleCheck} date={this.state.today} />
+                    {this.state.showForm ? addItem : <AddTaskButton showForm={this.renderForm} />}
                 </div>
-                <MyCalendar date={this.state.date} onClickDay={this.onClickDay} />
-                <DateTittle taskDate={this.state.taskDate} />
+                { this.state.showCalendar ?
+                    <MyCalendar date={this.state.date} onClickDay={this.onClickDay} /> : null}
             </div>
         )
     }
