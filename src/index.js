@@ -84,7 +84,7 @@ class TodoApp extends React.Component {
         this.state = {
             todoList: [
                 {
-                    text: "take out for walk",
+                    text: "take gabo out for a walk",
                     key: 1,
                     status: false,
                     dateCreation: new Date(),
