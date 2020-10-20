@@ -4,4 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   <li>Show tasks sorted by date</li>
   <li>Add a cancel button to the calendar</li>
 </ul>
-/*this can be done using difference in days and sorting the array*/
+*/this can be done using difference in days and sorting the array/*
