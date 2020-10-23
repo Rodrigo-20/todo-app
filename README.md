@@ -7,6 +7,7 @@ This project was made as a task of the javascript fullstack path of The odin Pro
   <li>Show tasks sorted by date</li>
   <li>Add a cancel button to the calendar</li>
   <li>Use caps on the tasks</li>
+  <li>Move contact infomation inside a 'footer'</li>
 </ul>
 <!--this can be done using difference in days and sorting the array-->
 
